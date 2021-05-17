@@ -1,5 +1,7 @@
 venv/
 .idea/
 
+doc/*.zip
+doc/*.pdf
 *.swp
 

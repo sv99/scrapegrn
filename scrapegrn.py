@@ -39,10 +39,17 @@ def get_number(str):
 # url = 'https://xn--c1adzl.online/order?id=5510f2eb-5081-47ca-a7a7-242ffd6e72bc'
 # url = 'https://егрн.online/order?id=c680020e-2a91-43f2-bde9-143520ebf826'
 # заказ 17.10.2019 - 245 выписок
-url = 'https://егрн.online/order?id=49d85e70-4c18-475e-b602-e9b9e20c77c1'
+# url = 'https://егрн.online/order?id=49d85e70-4c18-475e-b602-e9b9e20c77c1'
+# заказ 17.10.2019 - 245 выписок
+url = 'https://xn--c1adzl.online/order?id=88341f4d-7aad-48cf-8d4b-10dbdaa0d47b'
 
 if __name__ == "__main__":
-    r = requests.get(url)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/20100101 Firefox/89.0'
+    }
+
+    r = requests.get(url, headers=headers)
+    print(r.status_code)
     base_url = r.url.rsplit('/', 1)[0]
     tree = html.fromstring(r.text)
 
@@ -66,9 +73,9 @@ if __name__ == "__main__":
         # print(href_pdf)
 
         # download files
-        r_zip = requests.get(base_url + href_zip)
+        r_zip = requests.get(base_url + href_zip, headers=headers)
         with open("doc/уч. %s %s_%s.zip" % (number, name, kadastr_no.replace(':', '_')), 'wb') as output_file:
             output_file.write(r_zip.content)
-        r_pdf = requests.get(base_url + href_pdf)
+        r_pdf = requests.get(base_url + href_pdf, headers=headers)
         with open("doc/уч. %s %s_%s.pdf" % (number, name, kadastr_no.replace(':', '_')), 'wb') as output_file:
             output_file.write(r_pdf.content)

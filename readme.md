@@ -41,9 +41,10 @@ scrap egrn results
 -------------
 
 ```bash
-pyenv local 3.7
+pyenv local 3.9.1
 python -m venv venv
-./venv/bin activate
+source venv/bin/activate
+pip install --upgrade pip
 pip install pipenv
 
 # initial
@@ -63,3 +64,12 @@ pipenv install --system
 **18.10.19** еще одна выписка на 245 объектов. Выяснилось, что есть два кадастровых номера
 для участка 195 - для того, чтобы не перетирался файл добавил в конец
 кадастровый номер 47:07:0162002:89 -> 47_07_0162002_89
+
+Access Forbidden 403
+--------------------
+
+**05.2021** - `requests.get(...)` - получаем ошибку 403 - You dont have permissions for access to orders.
+
+Решилось добавлением headers with `User-Agent`. Сначала скопировал все заголовки
+из Firefox, потом поудалял все, за исключением `User-Agent`.
+В таком режиме все работает.
